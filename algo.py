@@ -1,8 +1,10 @@
 import csv
 import random as r
 
+#Algorithm function for creating random groups
 def randomizeGroups():
   aList=[]
+  #Ridding of whitespace and converting csv to a list
   with open('./static/uploads/data.csv', 'r') as f:
       reader = csv.reader(f, skipinitialspace=False,delimiter=',', quoting=csv.QUOTE_NONE)
       for row in reader:
@@ -10,6 +12,7 @@ def randomizeGroups():
   
   boys=[]
   girls=[]
+  #More parsing
   for i in aList:
     if i[2]=="Male":
       boys.append(i)
@@ -21,6 +24,7 @@ def randomizeGroups():
   groupB=[]
   c1=0
   c2=0
+  #Creating groups
   for i in boys:
     if i[3]=='A':
       if c1%2==0:
@@ -53,12 +57,14 @@ def randomizeGroups():
         groupB.append(i)
         i[3]='B'
     c2+=1
+  #Rewriting csv with new groups
   with open('./static/uploads/data.csv', 'w+') as file:
     writer=csv.writer(file)
     writer.writerows(groupA)
     writer.writerows(groupB)
     file.close()
 
+#Function that copies all data from the input csv to the data csv
 def copyInitData():
   bList=[]
   with open('./static/uploads/initial input data.csv', 'r') as f:
