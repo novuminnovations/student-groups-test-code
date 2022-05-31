@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>File Upload</title>
+    <link href="./static/css/style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <form id="form" method="POST" action="" enctype="multipart/form-data">
+      <h1>Student Data Upload (.csv)</h1>
+      <h1><input type="file" name="file"></h1>
+      <h1><input type="submit" value="Submit"></h1>
+    </form>
+    <div style="padding: 2px; display: block; margin-top: 5px; text-align: center; width:100%; white-space:nowrap;">
+      <button id="btn" onclick="window.location.href='/home.html'">Create Groups</button>
+    </div>
+    
+  </body>
+  <script src='./static/js/script.js'></script>
+</html>

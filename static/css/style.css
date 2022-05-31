@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+tr {
+  text-align: left;
+  vertical-align: top;
+}
+
+h1 {
+  text-align: center;
+}
+
+table {
+  display: inline-table;
+  border-top: 5px black solid;
+  border-bottom: 5px black solid;
+}
+
+* {
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+}
+
+.table-header {
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+input[type="button"] {
+  vertical-align: top;
+}
+
+label {
+  display: block;
+}
+
+.class {
+  text-align: right;
+}
+
+button {
+	display: inline-block;
+	font-size: 1.5em;
+	background: none;
+	border: none;
+	cursor: pointer;
+	position: relative;
+	color: #000000;
+	transition: color .2s;
+}
+button:after {
+	content: '';
+	position: absolute;
+	background-color: #000000;
+	z-index: -1;
+}
+button:hover {
+	color: #FFF;
+}
+
+button.left:after {
+	left: -.3em;
+	top: 0;
+	height: 100%;
+	width: .08em;
+	transform: skew(-20deg);
+	transition: width .2s;
+}
+  
+button.left:hover:after {
+	width: calc(100% + .6em);
+}
+
+button.right:after {
+	right: -.3em;
+	top: 0;
+	height: 100%;
+	width: .08em;
+	transform: skew(-20deg);
+	transition: width .2s;
+}
+button.right:hover:after {
+	width: calc(100% + .6em);
+}
+
+.tables {
+  padding: 5px;
+  display: block;
+  margin-top: 5px;
+  text-align: center;
+  width:100%;
+  white-space:nowrap;
+}
+
+.buttons {
+  padding: 5px;
+  display: block;
+  margin-top: 5px;
+  text-align: center;
+  width:100%;
+  white-space:nowrap;
+}
+
+table, th, td {
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+th, td {
+  background-color: #e9f2f2;
+}

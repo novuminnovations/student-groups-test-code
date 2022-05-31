@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>replit</title>
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  </head>
+
+  <body>
+    <h1 class="title">Global Field Trip Groups</h1>
+    <div class="tables">
+    <table id="groupA">
+      <tr class="table-header">
+        <th>Group A</th>
+      </tr>
+      {% for i in range(data[0]|length) %}
+      <tr>
+        <td>
+          <label class="name" for="{{i+1}}" id="{{'name1-'+(i+1)|string}}">{{data[0][i]}}</label>
+        </td>
+        <td>
+          <input type="checkbox" id="{{'attend1-'+(i+1)|string}}" name="{{data[0][i]}}" value="here" class="attendance">
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    <table id="groupB">
+      <tr class="table-header">
+        <th>Group B</th>
+      </tr>
+      {% for i in range(data[1]|length) %}
+      <tr>
+        <td>
+          <label class="name" for="{{i+1}}" id="{{'name2-'+(i+1)|string}}">{{data[1][i]}}</label>
+        </td>
+        <td>
+          <input type="checkbox" id="{{'attend2-'+(i+1)|string}}" name="{{data[1][i]}}" value="here" class="attendance">
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    </div>
+    <div style="padding: 2px; display: block; margin-top: 5px; text-align: center; width:100%; white-space:nowrap;">
+    </div>
+    <div class="buttons">
+    <form action="/random/" method="post">
+      <button name="btnrandom" type="submit" class="left">Randomize Groups</button>
+    </form>
+    </div>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="./static/js/script.js"></script>
+  </body>
+
+</html>
