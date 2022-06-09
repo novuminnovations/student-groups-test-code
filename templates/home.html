@@ -13,6 +13,7 @@
   <body>
     <h1 class="title">Global Field Trip Groups</h1>
     <div class="tables">
+    <form method="post">
     <table id="groupA">
       <tr class="table-header">
         <th>Group A</th>
@@ -43,12 +44,18 @@
       </tr>
       {% endfor %}
     </table>
+    <p><input type = "submit" name="formA" value = "Submit Attendance" /></p>
+    </form>
     </div>
     <div style="padding: 2px; display: block; margin-top: 5px; text-align: center; width:100%; white-space:nowrap;">
     </div>
     <div class="buttons">
     <form action="/random/" method="post">
       <button name="btnrandom" type="submit" class="left">Randomize Groups</button>
+    </form>
+    <form action="/subgroups/" method = "POST">
+      <p>Number of Subgroups <input type = "number" name = "subgroups" /></p>
+      <p><input type = "submit" value = "Submit" /></p>
     </form>
     </div>
     

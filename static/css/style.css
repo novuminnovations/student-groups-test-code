@@ -114,3 +114,21 @@ table, th, td {
 th, td {
   background-color: #e9f2f2;
 }
+
+#login h1 {
+  margin: 0 0 20px 0;
+}
+#login input {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 0 20px 0;
+  padding: 10px;
+}
+#login input[type=submit] {
+  font-weight: 700;
+  border: 0;
+  padding: 15px;
+  background: #bb1b1b;
+  color: #fff;
+  cursor: pointer;
+}
