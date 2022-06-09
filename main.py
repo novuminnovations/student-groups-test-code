@@ -17,10 +17,10 @@ JWT_KEY = "GLOBAL-STUDENT-GROUPS-KEY"
 JWT_ISS = "JANICE-BAILEY"
 JWT_ALGO = "HS512"
 
-password = "G1OB4lF13LdTr1p101"
+password = "[REDACTED]"
 encpw=bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
 USERS = {
-  "janicebailey" : encpw
+  "[REDACTED]" : encpw
 }
 
 def jwtSign(username):
