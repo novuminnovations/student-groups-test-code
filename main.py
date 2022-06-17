@@ -13,10 +13,11 @@ app.config["DEBUG"]=True
 app.config['UPLOAD_EXTENSIONS'] = ['.csv']
 app.config['UPLOAD_PATH'] =  'static/uploads'
 
+#Login settings
 JWT_KEY = "GLOBAL-STUDENT-GROUPS-KEY"
 JWT_ISS = "JANICE-BAILEY"
 JWT_ALGO = "HS512"
-
+#Login information
 password = "[REDACTED]"
 encpw=bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
 USERS = {
@@ -34,7 +35,7 @@ def jwtSign(username):
     "iss" : JWT_ISS,
     "data" : { "username" : username }
   }, JWT_KEY, algorithm=JWT_ALGO)
-
+#Using cookies for login
 def jwtVerify(cookies):
   try:
     token = cookies.get("JWT")
@@ -59,7 +60,7 @@ def parse():
       gb.append(i)
   data=[ga, gb]
   return data
-
+#Creating subgroups through modular arithmetic (Needs to be improved for very large number of groups)
 def createSubgroups(x):
   data=[]
   with open('./static/uploads/data.csv', 'r') as datafile:
@@ -111,6 +112,7 @@ def createSubgroups(x):
   data=[ga, gb]
   return data
 
+#Function for checking if file is csv
 def allowed_file(filename):
   return '.' in filename and \
     filename.rsplit('.', 1)[1].lower()=="csv"
@@ -120,19 +122,20 @@ def allowed_file(filename):
 def too_large(e):
     return "File is too large", 413
 
-#Index app route//init page/needs to be changed to login page
-
+#Redirecting default page to login page
 @app.route('/')
 def redir():
   return redirect(url_for("login"))
 
+#Simple login page, every other web page will also include "jwtVerify" to check if device has logged in before with cookies
 @app.route('/login')
 def login():
   if jwtVerify(request.cookies):
     return redirect(url_for("upload"))
   else:
     return render_template("login.html")
-  
+
+#Rendering upload page
 @app.route('/upload')
 def upload():
   if jwtVerify(request.cookies):
@@ -141,6 +144,7 @@ def upload():
   else:
     return redirect(url_for("login"))
 
+#Login verification/Post handling
 @app.route("/lin", methods=["POST"])
 def lin():
   data = dict(request.form)
@@ -153,6 +157,7 @@ def lin():
     res.set_cookie("JWT", jwtSign(data["username"]))
   return res
 
+#Logout
 @app.route("/lout", methods=["POST"])
 def lout():
   res = make_response("OK", 200)
@@ -209,17 +214,36 @@ def random():
   else:
     return redirect(url_for("login"))
 
+#Creates subgroups using algorithm function
 @app.route("/subgroups/", methods=['POST'])
 def subgroups():
   if jwtVerify(request.cookies):
     if request.method == 'POST':
-      if len(request.form.get("subgroups"))>0:
-        return render_template('home.html', data=createSubgroups(int(request.form.get("subgroups"))))
+      if 'formA' in request.form:
+        data=[]
+        attendees=[]
+        with open('./static/uploads/data.csv', 'r') as datafile:
+          reader = csv.reader(datafile, skipinitialspace=False,delimiter=',', quoting=csv.QUOTE_NONE)
+          for i in reader:
+            data.append(i)
+        if request.method=='POST':
+          for i in data:
+            if request.form.get(str(i))!=None:
+              attendees.append(i)
+        with open('./static/uploads/attendance.csv', 'w+') as file:
+          writer=csv.writer(file)
+          writer.writerows(attendees)
+          file.close()
+        return redirect(url_for("attendance"))
       else:
-        return '', 204
+        if len(request.form.get("subgroups"))>0:
+          return render_template('home.html', data=createSubgroups(int(request.form.get("subgroups"))))
+        else:
+          return '', 204
   else:
     return redirect(url_for("login"))
 
+#Looks at checked boxes through post and exports csv with attendance
 @app.route("/attendance/")
 def attendance():
   if jwtVerify(request.cookies):
@@ -233,6 +257,7 @@ def attendance():
   else:
     return redirect(url_for("login"))
 
+#Post handling for attendance, edits attendance csv
 @app.route('/home.html', methods=['GET', 'POST'])
 def markAttendanceHomePage():
   data=[]
@@ -252,7 +277,7 @@ def markAttendanceHomePage():
   return redirect(url_for("attendance"))
   
   
-#Runs flask app using local port, however repl handles this to run on a domain// needs to be edited to account for Ms. Bailey's domain
+#Runs flask app using local port, however repl handles this to run on a domain
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000)
 
